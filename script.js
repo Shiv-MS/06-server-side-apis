@@ -1,0 +1,1 @@
+// JS for weather app
