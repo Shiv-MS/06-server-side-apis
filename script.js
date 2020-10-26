@@ -10,7 +10,7 @@ $(document).ready(function () {
         let temperature = $('<div class = "temperature">');
         let humidity = $('<div class = "humidity">');
         let wind = $('<div class = "wind">');
-        let queryURL = `http://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&units=imperial&q=${inputReceived}`;
+        let queryURL = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&units=imperial&q=${inputReceived}`;
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -24,7 +24,7 @@ $(document).ready(function () {
             $(".weatherDashboard").append(temperature).append(humidity).append(wind);
         });
     }
-    
+
 
     userClick.on("click", function () {
         if (userSearch.val()) {
