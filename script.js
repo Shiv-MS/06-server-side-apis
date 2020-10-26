@@ -25,6 +25,20 @@ $(document).ready(function () {
         });
     }
 
+    function searchForWeather(inputReceived) {
+        $('.weatherForecast').empty();
+        console.log(inputReceived)
+        let queryURL = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=imperial&q=${inputReceived}`;
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response);
+
+
+        });
+    }
+
 
     userClick.on("click", function () {
         if (userSearch.val()) {
