@@ -15,25 +15,25 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
+            // console.log(response);
             temperature.text(`Temperature: ${response.main.temp} °F`);
             humidity.text(`Humidity: ${response.main.humidity}%`);
             wind.text(`Wind Speed: ${response.main.humidity} MPH`);
 
 
             $(".weatherDashboard").append(temperature).append(humidity).append(wind);
+            weatherForecast(inputReceived);
         });
     }
 
-    function searchForWeather(inputReceived) {
+    function weatherForecast(inputReceived) {
         $('.weatherForecast').empty();
-        console.log(inputReceived)
         let queryURL = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=imperial&q=${inputReceived}`;
         $.ajax({
             url: queryURL,
             method: "GET"
-        }).then(function (response) {
-            console.log(response);
+        }).then(function (forecast) {
+            console.log(forecast);
 
 
         });
