@@ -15,11 +15,10 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            // console.log(response);
+            console.log(response);
             temperature.text(`Temperature: ${response.main.temp} °F`);
             humidity.text(`Humidity: ${response.main.humidity}%`);
             wind.text(`Wind Speed: ${response.main.humidity} MPH`);
-
 
             $(".weatherDashboard").append(temperature).append(humidity).append(wind);
             weatherForecast(inputReceived);
@@ -32,9 +31,30 @@ $(document).ready(function () {
         $.ajax({
             url: queryURL,
             method: "GET"
-        }).then(function (forecast) {
-            console.log(forecast);
+        }).then(function (response) {
+            console.log(response);
+            let five_day = response.list
+            let index = 0;
+            let days = [];
 
+            // five_day.forEach(e => {
+            //     let day = moment(e.dt_txt).format("dddd")
+            //     if (!days.includes(day) && days.length < 5) {
+            //         days.push(day)
+            //         $(".weatherForecast").append(`<p>${day}: ${e.main.feels_like}</p>`)
+            //     }
+            // })
+
+
+            do {
+                index = index + 1
+                let current = five_day[index]
+                let day = moment(current.dt_txt).format("dddd")
+                if (!days.includes(day)) {
+                    days.push(day)
+                    $(".weatherForecast").append(`<p>${day}: ${current.main.feels_like}</p>`)
+                }
+            } while (days.length < 5)
 
         });
     }
