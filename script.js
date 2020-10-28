@@ -50,9 +50,10 @@ $(document).ready(function () {
                 index = index + 1
                 let current = five_day[index]
                 let day = moment(current.dt_txt).format("dddd")
+                let date = moment(current.dt_txt).format('l')
                 if (!days.includes(day)) {
                     days.push(day)
-                    $(".weatherForecast").append(`<p>${day}: ${current.main.feels_like}</p>`)
+                    $(".weatherForecast").append(`<div class="forecastCards card"><p>${date}</p><br>Temperature:${current.main.feels_like}</p><br><p>Humidity:${current.main.humidity}</p></div>`)
                 }
             } while (days.length < 5)
 

@@ -1,1 +1,9 @@
-/* styles for weather app */
+.weatherForecast {
+    display: flex;
+    line-height: .5rem;
+    margin-top: 2rem;
+}
+
+.forecastCards {
+    margin-right: 1rem;
+}
