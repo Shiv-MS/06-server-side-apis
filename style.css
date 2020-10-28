@@ -1,3 +1,13 @@
+header {
+    font-size: 3rem;
+    line-height: normal;
+    background-color: #2c3338;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 3rem;
+
+}
+
 .weatherForecast {
     display: flex;
     line-height: .5rem;

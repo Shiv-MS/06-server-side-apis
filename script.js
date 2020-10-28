@@ -7,6 +7,7 @@ $(document).ready(function () {
     function searchForWeather(inputReceived) {
         $('.weatherDashboard').empty();
         console.log(inputReceived)
+        let citySearched = $('<div class = "citySearched">')
         let temperature = $('<div class = "temperature">');
         let humidity = $('<div class = "humidity">');
         let wind = $('<div class = "wind">');
@@ -16,11 +17,12 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
             console.log(response);
+            citySearched.text(`${inputReceived}`);
             temperature.text(`Temperature: ${response.main.temp} °F`);
             humidity.text(`Humidity: ${response.main.humidity}%`);
             wind.text(`Wind Speed: ${response.main.humidity} MPH`);
 
-            $(".weatherDashboard").append(temperature).append(humidity).append(wind);
+            $(".weatherDashboard").append(citySearched).append(temperature).append(humidity).append(wind);
             weatherForecast(inputReceived);
         });
     }
@@ -53,7 +55,7 @@ $(document).ready(function () {
                 let date = moment(current.dt_txt).format('l')
                 if (!days.includes(day)) {
                     days.push(day)
-                    $(".weatherForecast").append(`<div class="forecastCards card"><p>${date}</p><br>Temperature:${current.main.feels_like}</p><br><p>Humidity:${current.main.humidity}</p></div>`)
+                    $(".weatherForecast").append(`<div class="forecastCards card"><p>${date}</p><br>Temp: ${current.main.feels_like} °F</p><br><p>Humidity: ${current.main.humidity}%</p></div>`)
                 }
             } while (days.length < 5)
 
