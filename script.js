@@ -7,7 +7,9 @@ $(document).ready(function () {
     function searchForWeather(inputReceived) {
         $('.weatherDashboard').empty();
         console.log(inputReceived)
-        let citySearched = $('<div class = "citySearched">')
+        let citySearched = $('<div class = "citySearched">');
+        let currentDate = $('<div class = "currentDate">');
+        let currentIcon = $('<img class = "currentIcon">')
         let temperature = $('<div class = "temperature">');
         let humidity = $('<div class = "humidity">');
         let wind = $('<div class = "wind">');
@@ -17,12 +19,14 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
             console.log(response);
-            citySearched.text(`${inputReceived}`);
+            currentDate = moment.unix(response.dt).format('l')
+            citySearched.text(`${inputReceived}`.toUpperCase());
+            currentIcon.attr("src", "https://openweathermap.org/img/w/" + `${response.weather[0].icon}` + ".png");
             temperature.text(`Temperature: ${response.main.temp} °F`);
             humidity.text(`Humidity: ${response.main.humidity}%`);
             wind.text(`Wind Speed: ${response.main.humidity} MPH`);
 
-            $(".weatherDashboard").append(citySearched).append(temperature).append(humidity).append(wind);
+            $(".weatherDashboard").append(citySearched).append(currentDate).append(currentIcon).append(temperature).append(humidity).append(wind);
             weatherForecast(inputReceived);
         });
     }

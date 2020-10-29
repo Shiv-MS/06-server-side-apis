@@ -17,3 +17,8 @@ header {
 .forecastCards {
     margin-right: 1rem;
 }
+
+.currentIcon {
+    height: 3rem;
+    width: 3rem;
+}
