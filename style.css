@@ -22,3 +22,15 @@ header {
     height: 3rem;
     width: 3rem;
 }
+
+.red-color {
+    background-color: red;
+}
+
+.orange-color {
+    background-color: orange;
+}
+
+.green-color {
+    background-color: lightgreen;
+}

@@ -61,11 +61,11 @@ $(document).ready(function () {
 
             $(".weatherDashboard").append(`<div class="uvIndex"> UV Index: <span>${response.value}<span></div>`);
             if (response.value > 8) {
-                $(".weatherDashboard").find(".uvIndex span").addClass("bg-danger").addClass("text-white");
+                $(".weatherDashboard").find(".uvIndex span").addClass("red-color").addClass("text-white");
             } else if (response.value > 6) {
-                $(".weatherDashboard").find(".uvIndex span").addClass("bg-moderate")
+                $(".weatherDashboard").find(".uvIndex span").addClass("orange-color")
             } else {
-                $(".weatherDashboard").find(".uvIndex span").addClass("bg-success")
+                $(".weatherDashboard").find(".uvIndex span").addClass("green-color")
             }
         });
     }
