@@ -3,6 +3,18 @@ $(document).ready(function () {
     const userSearch = $(".cityInput");
     const userClick = $(".cityInputButton");
     const searchHistory = $("searchHistory");
+    const historyData = [];
+
+    function getHistoryData() {
+        let storedHistory = JSON.parse(localStorage.getItem("historyStore"));
+        if (storedHistory) historyData = storedHistory;
+
+        $(".searchHistory").find("a").remove();
+        historyData.forEach(function (item) {
+            console.log(item)
+            $(".searchHistory").append(`<a href="#" class="list-group-item list-group-item-action searchedCity" data-search="` +item+ `">` +item+ `</a>`)
+        });
+    }
 
 
     function searchForWeather(inputReceived) {
@@ -27,6 +39,12 @@ $(document).ready(function () {
             humidity.text(`Humidity: ${response.main.humidity}%`);
             wind.text(`Wind Speed: ${response.main.humidity} MPH`);
             searchForUV(response.coord.lat, response.coord.lat);
+
+            if(historyData.indexOf(inputReceived) < 0){
+            historyData.push(inputReceived);
+            localStorage.setItem("history", JSON.stringify(historyData));
+            getHistoryData();
+            }
 
             $(".weatherDashboard").append(citySearched).append(currentDate).append(currentIcon).append(temperature).append(humidity).append(wind);
             weatherForecast(inputReceived);
@@ -100,5 +118,7 @@ $(document).ready(function () {
             searchForWeather($(this).attr("data-search"));
         }
     });
+
+    getHistoryData();
 
 });
