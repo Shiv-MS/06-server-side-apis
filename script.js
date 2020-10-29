@@ -2,11 +2,12 @@ $(document).ready(function () {
     const apiKey = "8cdcf354abe2770a64714b6da2b0775e";
     const userSearch = $(".cityInput");
     const userClick = $(".cityInputButton");
+    const searchHistory = $("searchHistory");
 
 
     function searchForWeather(inputReceived) {
         $('.weatherDashboard').empty();
-        console.log(inputReceived)
+        // console.log(inputReceived)
         let citySearched = $('<div class = "citySearched">');
         let currentDate = $('<div class = "currentDate">');
         let currentIcon = $('<img class = "currentIcon">')
@@ -18,16 +19,36 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
+            // console.log(response);
             currentDate = moment.unix(response.dt).format('l')
             citySearched.text(`${inputReceived}`.toUpperCase());
             currentIcon.attr("src", "https://openweathermap.org/img/w/" + `${response.weather[0].icon}` + ".png");
             temperature.text(`Temperature: ${response.main.temp} °F`);
             humidity.text(`Humidity: ${response.main.humidity}%`);
             wind.text(`Wind Speed: ${response.main.humidity} MPH`);
+            searchForUV(response.coord.lat, response.coord.lat);
 
             $(".weatherDashboard").append(citySearched).append(currentDate).append(currentIcon).append(temperature).append(humidity).append(wind);
             weatherForecast(inputReceived);
+        });
+    }
+
+    function searchForUV(lat, lon) {
+        let queryURL = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            // console.log(response);
+
+            $(".weatherDashboard").append(`<div class="uvIndex"> UV Index: <span>${response.value}<span></div>`);
+            if (response.value > 8) {
+                $(".weatherDashboard").find(".uvIndex span").addClass("bg-danger").addClass("text-white");
+            } else if (response.value > 6) {
+                $(".weatherDashboard").find(".uvIndex span").addClass("bg-moderate")
+            } else {
+                $(".weatherDashboard").find(".uvIndex span").addClass("bg-success")
+            }
         });
     }
 
@@ -38,7 +59,7 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
+            // console.log(response);
             let five_day = response.list
             let index = 0;
             let days = [];
@@ -71,6 +92,12 @@ $(document).ready(function () {
         if (userSearch.val()) {
             searchForWeather(userSearch.val());
             userSearch.val("");
+        }
+    });
+
+    searchHistory.on("click", ".searchedCity", function () {
+        if ($(this).attr("data-search")) {
+            searchForWeather($(this).attr("data-search"));
         }
     });
 
