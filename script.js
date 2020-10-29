@@ -55,7 +55,7 @@ $(document).ready(function () {
                 let date = moment(current.dt_txt).format('l')
                 if (!days.includes(day)) {
                     days.push(day)
-                    $(".weatherForecast").append(`<div class="forecastCards card"><p>${date}</p><br>Temp: ${current.main.feels_like} °F</p><br><p>Humidity: ${current.main.humidity}%</p></div>`)
+                    $(".weatherForecast").append(`<div class="forecastCards card"><p>${date}</p><img src="https://openweathermap.org/img/w/${current.weather[0].icon}.png"><br>Temp: ${current.main.feels_like} °F</p><br><p>Humidity: ${current.main.humidity}%</p></div>`)
                 }
             } while (days.length < 5)
 
